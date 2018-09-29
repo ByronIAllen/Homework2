@@ -1,0 +1,35 @@
+Sub Easy():
+    
+    ' Run through each worksheet
+    For Each ws In Worksheets
+        ' Create Variables
+        Dim total As Double
+        Dim ticker As Integer
+    
+        ticker = 2
+        total = 0
+    
+        LastRow = ws.Cells(Rows.Count, 1).End(xlUp).Row
+        
+        ws.Range("I1").Value = "Ticker"
+        ws.Range("J1").Value = "Total Stock Volume"
+    
+        ' Search each row
+        For i = 2 To LastRow
+            
+            ' Test for same ticker and add to total valume for that ticker
+            If ws.Cells(i + 1, 1).Value = ws.Cells(i, 1).Value Then
+                total = total + ws.Cells(i, 7).Value
+                    
+            ElseIf ws.Cells(i + 1, 1).Value <> ws.Cells(i, 1).Value Then
+                ws.Cells(ticker, 9).Value = ws.Cells(i, 1).Value
+                ws.Cells(ticker, 10).Value = total
+                
+                ticker = ticker + 1
+                total = 0
+            
+            End If
+        Next
+    Next
+    
+End Sub
